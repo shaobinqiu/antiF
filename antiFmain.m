@@ -13,8 +13,8 @@ dirOutput=dir(fullfile(fileFolder,'*'));%get the filename in direction
  for ii=3:size(dirOutput,1)
 message=import_poscar(['./Ratio1_1POSCAR_V2_V10/',dirOutput(ii).name]);
 
-fid=fopen(['./INCAR&POSCAR/POSCAR_',dirOutput(ii).name],'w+');
-fprintf(fid,[message.comment,'\n']);
+fid=fopen(['./INCAR&POSCAR/POSCAR_','S',int2str(message.atomcount(1)),'Mn',int2str(message.atomcount(2)+message.atomcount(3)),'_',int2str(ii-2)],'w+');
+fprintf(fid,['S',int2str(message.atomcount(1)),'Mn',int2str(message.atomcount(2)+message.atomcount(3)),'\n']);
 fprintf(fid,'%g\n',1);
 fprintf(fid,'%g     %g     %g\n',message.lattice');
 m=char(message.symbols);%cell to char
@@ -24,7 +24,7 @@ fprintf(fid,'%s\n','direct');
 fprintf(fid,'%g     %g     %g\n',message.coords');
 fclose(fid);%POSCAR
 
-fid=fopen(['./INCAR&POSCAR/INCAR_',dirOutput(ii).name],'w+');
+fid=fopen(['./INCAR&POSCAR/INCAR_','S',int2str(message.atomcount(1)),'Mn',int2str(message.atomcount(2)+message.atomcount(3)),'_',int2str(ii-2)],'w+');
 fprintf(fid,['SYSTEM=MnS','\n']);
 fprintf(fid,['NSW=',int2str(NSW),'\n']);
 fprintf(fid,['ENCUT=',int2str(ENCUT),'\n']);
